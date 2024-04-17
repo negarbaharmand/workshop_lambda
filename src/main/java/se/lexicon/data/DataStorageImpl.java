@@ -47,36 +47,42 @@ public class DataStorageImpl implements DataStorage {
 
     @Override
     public Person findOne(Predicate<Person> filter) {
-        //todo: implement the method
+        for (Person p : personList) {
+            if (filter.test(p)) {
+                return p;
+            }
+        }
         return null;
     }
 
     @Override
     public String findOneAndMapToString(Predicate<Person> filter, Function<Person, String> personToString) {
-        //todo: implement the method
         return null;
     }
 
     @Override
     public List<String> findManyAndMapEachToString(Predicate<Person> filter, Function<Person, String> personToString) {
-        //todo: implement the method
-        return null;
+        List<Person> persons = findMany(filter);
+        List<String> stringListOutPut = new ArrayList<>();
+        for (Person p : persons) {
+            stringListOutPut.add(personToString.apply(p));
+        }
+        return stringListOutPut;
     }
 
     @Override
     public void findAndDo(Predicate<Person> filter, Consumer<Person> consumer) {
-        //todo: implement the method
     }
 
     @Override
     public List<Person> findAndSort(Comparator<Person> comparator) {
-        //todo: implement the method
         return null;
     }
 
     @Override
     public List<Person> findAndSort(Predicate<Person> filter, Comparator<Person> comparator) {
-        //todo: implement the method
-        return null;
+        List<Person> persons = findMany(filter);
+        persons.sort(comparator);
+        return persons;
     }
 }
